@@ -159,15 +159,42 @@ if page == "🏠 Overview":
         )
 
 # results = generate_analysis(employee_df)
-elif page =="📊 Employee Analysis":
+elif page == "📊 Employee Analysis":
     st.subheader("📊 Employee Analysis")
 
-    st.write("Total Employees:", results["total_employees"])
-    st.write("Average Salary:", results["average_salary"])
-    st.write("Median Salary:", results["median_salary"])
-    st.write("Minimum Salary:", results["minimum_salary"])
-    st.write("Maximum Salary:", results["maximum_salary"])
-# st.divider()
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric(
+            "👥 Total Employees",
+            f"{results['total_employees']:,}"
+        )
+
+    with col2:
+        st.metric(
+            "💰 Average Salary",
+            f"${results['average_salary']:,.0f}"
+        )
+
+    with col3:
+        st.metric(
+            "📊 Median Salary",
+            f"${results['median_salary']:,.0f}"
+        )
+
+    col4, col5 = st.columns(2)
+
+    with col4:
+        st.metric(
+            "📉 Minimum Salary",
+            f"${results['minimum_salary']:,.0f}"
+        )
+
+    with col5:
+        st.metric(
+            "📈 Maximum Salary",
+            f"${results['maximum_salary']:,.0f}"
+        )
 elif page == "📈 Employee Visualizations":
     st.subheader("📈 Employee Visualizations")
 
