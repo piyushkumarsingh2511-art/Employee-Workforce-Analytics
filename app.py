@@ -51,20 +51,112 @@ ucop_df = pd.read_csv(
 # Existing trained model
 salary_model = joblib.load(
     "salary_model.pkl"
-)
+) 
 results = generate_analysis(employee_df)
-
 if page == "🏠 Overview":
 
     st.title("💼 Employee Workforce Analytics")
+    st.caption(
+        "Workforce insights, salary intelligence & employee segmentation"
+    )
 
-    st.success("All existing project files connected successfully!")
+    # KPI Cards
+    col1, col2, col3, col4 = st.columns(4)
 
-    st.write("Employee Dataset:", employee_df.shape)
-    st.write("Segmented Dataset:", segmented_df.shape)
-    st.write("UCOP Dataset:", ucop_df.shape)
+    with col1:
+        st.metric(
+            "👥 Total Employees",
+            f"{results['total_employees']:,}"
+        )
 
-    st.write("Salary Model:", type(salary_model).__name__)
+    with col2:
+        st.metric(
+            "💰 Average Salary",
+            f"${results['average_salary']:,.0f}"
+        )
+
+    with col3:
+        st.metric(
+            "📊 Median Salary",
+            f"${results['median_salary']:,.0f}"
+        )
+
+    with col4:
+        st.metric(
+            "💵 Maximum Salary",
+            f"${results['maximum_salary']:,.0f}"
+        )
+
+    st.divider()
+
+    # Dataset Overview
+    st.subheader("📂 Project Data Overview")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.info(
+            f"**Employee Dataset**\n\n"
+            f"{employee_df.shape[0]:,} records"
+        )
+
+    with col2:
+        st.info(
+            f"**Segmented Employees**\n\n"
+            f"{segmented_df.shape[0]:,} records"
+        )
+
+    with col3:
+        st.info(
+            f"**UCOP Payroll Dataset**\n\n"
+            f"{ucop_df.shape[0]:,} records"
+        )
+
+    st.divider()
+
+    # Quick Insights
+    st.subheader("📌 Quick Insights")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.write("### 🏢 Largest Team")
+
+        largest_team = results["employees_by_team"].idxmax()
+        largest_team_count = results["employees_by_team"].max()
+
+        st.success(
+            f"{largest_team} — {largest_team_count:,} employees"
+        )
+
+    with col2:
+        st.write("### 💰 Highest Average Salary Team")
+
+        highest_salary_team = results["Salary_by_team"].idxmax()
+        highest_salary = results["Salary_by_team"].max()
+
+        st.success(
+            f"{highest_salary_team} — ${highest_salary:,.0f}"
+        )
+        st.divider()
+
+    st.subheader("📈 Workforce Snapshot")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.image(
+            "outputs/figures/salary_distribution.png",
+            # caption="Employee Salary Distribution",
+            use_container_width=True
+        )
+
+    with col2:
+        st.image(
+            "outputs/figures/employees_by_team.png",
+            # caption="Employees by Team",
+            use_container_width=True
+        )
 
 # results = generate_analysis(employee_df)
 elif page =="📊 Employee Analysis":
