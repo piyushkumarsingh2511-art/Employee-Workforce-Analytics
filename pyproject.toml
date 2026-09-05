@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "employee-workforce-analytics"
+version = "1.0.0"
+description = "Employee Workforce Analytics and Salary Intelligence System"
+requires-python = ">=3.9"
+
+dependencies = [
+    "pandas",
+    "numpy",
+    "matplotlib",
+    "seaborn"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]

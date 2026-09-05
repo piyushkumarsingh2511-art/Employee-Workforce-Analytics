@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+data/processed/
+outputs/figure/
+salary_model.pkl
+*.egg-info/
+cleaned_employees.csv
